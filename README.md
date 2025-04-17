@@ -15,6 +15,8 @@
 repositories {
     maven {
         url "http://suh-project.synology.me:9999/repository/maven-releases/"
+        // HTTP 접근 명시적 허용 (Gradle 7.0+ 필수)
+        allowInsecureProtocol = true
         // 인증이 필요한 경우
         credentials {
             username = "사용자명"
