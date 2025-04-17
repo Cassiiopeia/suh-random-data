@@ -68,7 +68,8 @@ publishing {
             def snapshotsRepoUrl = "http://${nexusUrl}:${nexusPort}/repository/maven-snapshots/"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
-            allowInsecureProtocol = true  // 비보안 프로토콜 허용
+            // HTTP 접근 명시적 허용
+            allowInsecureProtocol = true
 
             if (project.hasProperty('nexusUsername') && project.hasProperty('nexusPassword')) {
                 credentials {
