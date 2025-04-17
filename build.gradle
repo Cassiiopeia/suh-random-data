@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'me.suhsaechan'
-version = '0.0.1'
+version = project.hasProperty('version') ? project.property('version') : '0.0.1'
 
 java {
     toolchain {
@@ -45,8 +45,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-
-            // 메타데이터 추가
             pom {
                 name = 'suh-nickname-generator'
                 description = '닉네임 생성기 라이브러리'
@@ -55,20 +53,14 @@ publishing {
         }
     }
     repositories {
-        // 로컬 Maven 저장소에 게시
         mavenLocal()
-
-        // Nexus 저장소 배포 설정
         maven {
             name = 'nexus'
             def nexusUrl = project.findProperty('nexusUrl') ?: 'suh-project.synology.me'
             def nexusPort = project.findProperty('nexusPort') ?: '9999'
-
             def releasesRepoUrl = "http://${nexusUrl}:${nexusPort}/repository/maven-releases/"
             def snapshotsRepoUrl = "http://${nexusUrl}:${nexusPort}/repository/maven-snapshots/"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
-            // HTTP 접근 명시적 허용
             allowInsecureProtocol = true
 
             if (project.hasProperty('nexusUsername') && project.hasProperty('nexusPassword')) {
