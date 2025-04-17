@@ -64,15 +64,32 @@ public class Example {
 
 ### Nexus 저장소에 자동 배포
 
-이 프로젝트는 GitHub Actions를 통해 자동으로 배포됩니다:
+이 프로젝트는 GitHub Actions를 통해 Git 태그 기반으로 자동 배포됩니다:
 
-1. 새 버전을 배포하려면 태그를 생성하세요:
+1. build.gradle 파일에서 버전을 업데이트합니다:
+   ```groovy
+   version = '1.0.0' // SNAPSHOT 제거
+   ```
+
+2. 변경사항을 커밋하고 푸시합니다:
+   ```bash
+   git add .
+   git commit -m "버전 1.0.0 릴리스 준비"
+   git push origin main
+   ```
+
+3. 커밋에 태그를 생성하고 푸시합니다:
    ```bash
    git tag v1.0.0
    git push origin v1.0.0
    ```
 
-2. GitHub Actions가 자동으로 Nexus 저장소에 라이브러리를 배포합니다.
+4. 태그가 푸시되면 GitHub Actions가 자동으로 Nexus 저장소에 라이브러리를 배포합니다.
+
+5. 배포 후 다음 개발 버전으로 업데이트:
+   ```groovy
+   version = '1.0.1-SNAPSHOT' // 다음 개발 버전
+   ```
 
 ### 수동 Nexus 배포 (개발용)
 
