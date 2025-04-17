@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'me.suhsaechan'
-version = '0.0.2-SNAPSHOT'
+version = '0.0.1'
 
 java {
     toolchain {
@@ -48,9 +48,9 @@ publishing {
 
             // 메타데이터 추가
             pom {
-                name = 'Suh Nickname Generator'
+                name = 'suh-nickname-generator'
                 description = '닉네임 생성기 라이브러리'
-                url = 'https://github.com/suhsaechan/suh-nickname-generator'
+                url = 'https://github.com/Cassiiopeia/suh-nickname-generator/'
             }
         }
     }
