@@ -4,33 +4,77 @@
 
 ## 기능
 
-- 랜덤 닉네임 생성
-- 이름 기반 닉네임 생성
+- 랜덤 닉네임 생성: 형용사와 명사를 조합해 자연스러운 닉네임 생성
+- 이름 기반 닉네임 생성: 사용자 이름을 기반으로 일관된 닉네임 생성
 
-## 사용 방법
+## 설치 방법
 
-### Gradle 의존성 추가
+### Gradle
 
 ```gradle
 repositories {
+    mavenCentral()
+    // Suh-Nexus 추가
     maven {
         url "http://suh-project.synology.me:9999/repository/maven-releases/"
-        // HTTP 접근 명시적 허용 (Gradle 7.0+ 필수)
         allowInsecureProtocol = true
-        // 인증이 필요한 경우
-        credentials {
-            username = "사용자명"
-            password = "비밀번호"
-        }
     }
 }
 
 dependencies {
-    implementation 'me.suhsaechan:suh-nickname-generator:0.0.1-SNAPSHOT'
+    implementation 'me.suhsaechan:suh-nickname-generator:0.0.6'
 }
 ```
 
-### 코드 예제
+### Maven
+
+```xml
+<repositories>
+    <repository>
+        <id>suh-nexus</id>
+        <url>http://suh-project.synology.me:9999/repository/maven-releases/</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>me.suhsaechan</groupId>
+        <artifactId>suh-nickname-generator</artifactId>
+        <version>0.0.6</version>
+    </dependency>
+</dependencies>
+```
+
+## 기본 사용법
+
+### Spring Boot 프로젝트에서 사용
+
+```java
+import me.suhsaechan.suhnicknamegenerator.service.NicknameGeneratorService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+    
+    private final NicknameGeneratorService nicknameGeneratorService;
+    
+    public UserService(NicknameGeneratorService nicknameGeneratorService) {
+        this.nicknameGeneratorService = nicknameGeneratorService;
+    }
+    
+    public String generateNickname(String name) {
+        return nicknameGeneratorService.generateNicknameFromName(name);
+    }
+}
+```
+
+### 일반 Java 프로젝트에서 사용
 
 ```java
 import me.suhsaechan.suhnicknamegenerator.service.NicknameGeneratorService;
@@ -50,54 +94,11 @@ public class Example {
 }
 ```
 
-## 직접 빌드 및 배포
+## 문서
 
-### 로컬 빌드
-
-```bash
-./gradlew build
-```
-
-### 로컬 Maven 저장소에 배포
-
-```bash
-./gradlew publishToMavenLocal
-```
-
-### Nexus 저장소에 자동 배포
-
-이 프로젝트는 GitHub Actions를 통해 Git 태그 기반으로 자동 배포됩니다:
-
-1. build.gradle 파일에서 버전을 업데이트합니다:
-   ```groovy
-   version = '1.0.0' // SNAPSHOT 제거
-   ```
-
-2. 변경사항을 커밋하고 푸시합니다:
-   ```bash
-   git add .
-   git commit -m "버전 1.0.0 릴리스 준비"
-   git push origin main
-   ```
-
-3. 커밋에 태그를 생성하고 푸시합니다:
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
-
-4. 태그가 푸시되면 GitHub Actions가 자동으로 Nexus 저장소에 라이브러리를 배포합니다.
-
-5. 배포 후 다음 개발 버전으로 업데이트:
-   ```groovy
-   version = '1.0.1-SNAPSHOT' // 다음 개발 버전
-   ```
-
-### 수동 Nexus 배포 (개발용)
-
-```bash
-./gradlew publish -PnexusUrl=your-nexus-server -PnexusPort=9999 -PnexusUsername=your-username -PnexusPassword=your-password
-```
+- [API 문서](docs/api.md)
+- [사용 예제](docs/usage.md)
+- [변경 이력](docs/CHANGELOG.md)
 
 ## 라이선스
 
