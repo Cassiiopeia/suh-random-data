@@ -56,7 +56,7 @@ dependencies {
 ### Spring Boot 프로젝트에서 사용
 
 ```java
-import me.suhsaechan.suhnicknamegenerator.service.NicknameGeneratorService;
+import me.suhsaechan.suhnicknamegenerator.service.SuhNicknameGenerator;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -77,7 +77,7 @@ public class UserService {
 ### 일반 Java 프로젝트에서 사용
 
 ```java
-import me.suhsaechan.suhnicknamegenerator.service.NicknameGeneratorService;
+import me.suhsaechan.suhnicknamegenerator.service.SuhNicknameGenerator;
 
 public class Example {
     public static void main(String[] args) {
