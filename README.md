@@ -1,11 +1,10 @@
 # Suh Nickname Generator
 
-랜덤 닉네임을 생성하는 Java 라이브러리입니다.
+랜덤 객체를 생성하는 Java 라이브러리입니다.
 
 ## 기능
 
 - 랜덤 닉네임 생성: 형용사와 명사를 조합해 자연스러운 닉네임 생성
-- 이름 기반 닉네임 생성: 사용자 이름을 기반으로 일관된 닉네임 생성
 
 ## 설치 방법
 
@@ -22,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.suhsaechan:suh-nickname-generator:0.0.6'
+    implementation 'me.suhsaechan:suh-random-data:1.0.0'
 }
 ```
 
@@ -45,8 +44,8 @@ dependencies {
 <dependencies>
     <dependency>
         <groupId>me.suhsaechan</groupId>
-        <artifactId>suh-nickname-generator</artifactId>
-        <version>0.0.6</version>
+        <artifactId>suh-random-data</artifactId>
+        <version>1.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -56,7 +55,7 @@ dependencies {
 ### Spring Boot 프로젝트에서 사용
 
 ```java
-import me.suhsaechan.suhnicknamegenerator.service.NicknameGeneratorService;
+import me.suhsaechan.suhnicknamegenerator.service.SuhNicknameGenerator;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -77,23 +76,81 @@ public class UserService {
 ### 일반 Java 프로젝트에서 사용
 
 ```java
-import me.suhsaechan.suhnicknamegenerator.service.NicknameGeneratorService;
+import me.suhsaechan.suhnicknamegenerator.core.SuhRandomData;
 
 public class Example {
-    public static void main(String[] args) {
-        NicknameGeneratorService service = new NicknameGeneratorService();
-        
-        // 랜덤 닉네임 생성
-        String randomNickname = service.generateRandomNickname();
-        System.out.println("랜덤 닉네임: " + randomNickname);
-        
-        // 이름 기반 닉네임 생성
-        String nameBasedNickname = service.generateNicknameFromName("홍길동");
-        System.out.println("이름 기반 닉네임: " + nameBasedNickname);
+  public static void main(String[] args) {
+    // 기본 한국어 닉네임 생성
+    SuhRandomData generator = SuhRandomData.builder()
+        .locale("ko") // "ko", "한글", "KOREAN" 등 지원
+        .numberLength(4) // 숫자 접미사 길이
+        .uuidLength(4)   // UUID 접미사 길이
+        .build();
+
+    // 랜덤 닉네임 생성
+    String simpleNickname = generator.simpleNickname();
+    System.out.println("기본 닉네임: " + simpleNickname); // 예: 멋진고양이
+
+    // 숫자 접미사 닉네임
+    String numberedNickname = generator.nicknameWithNumber();
+    System.out.println("숫자 닉네임: " + numberedNickname); // 예: 멋진고양이-1234
+
+    // UUID 접미사 닉네임
+    String uuidNickname = generator.nicknameWithUuid();
+    System.out.println("UUID 닉네임: " + uuidNickname); // 예: 멋진고양이-abcd
+  }
+}
+```
+### 스프링부트에서 사용 
+```java
+import me.suhsaechan.suhnicknamegenerator.core.SuhRandomData;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+    private final SuhRandomData nicknameGenerator;
+
+    public UserService() {
+        this.nicknameGenerator = SuhRandomData.builder()
+            .locale("ko")
+            .numberLength(4)
+            .uuidLength(4)
+            .build();
+    }
+
+    public String generateSimpleNickname() {
+        return nicknameGenerator.simpleNickname();
+    }
+
+    public String generateNumberedNickname() {
+        return nicknameGenerator.nicknameWithNumber();
+    }
+
+    public String generateUuidNickname() {
+        return nicknameGenerator.nicknameWithUuid();
     }
 }
 ```
 
+### Locale 설정
+```java
+SuhRandomData generator = SuhRandomData.builder()
+    .locale("en") // 영어 닉네임 (예: CoolCat)
+    .build();
+String englishNickname = generator.simpleNickname();
+System.out.println("영어 닉네임: " + englishNickname);
+```
+
+### 접미사 길이 설정
+```java
+SuhRandomData generator = SuhRandomData.builder()
+    .locale("ko")
+    .numberLength(6) // 6자리 숫자
+    .uuidLength(8)   // 8자리 UUID
+    .build();
+String longNumberNickname = generator.nicknameWithNumber(); // 예: 멋진고양이-123456
+String longUuidNickname = generator.nicknameWithUuid();     // 예: 멋진고양이-abcdef12
+```
 ## 문서
 
 - [API 문서](docs/api.md)
