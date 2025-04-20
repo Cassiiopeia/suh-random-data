@@ -1,4 +1,4 @@
-# Suh Nickname Generator
+# Suh Random Engine
 
 랜덤 객체를 생성하는 Java 라이브러리입니다.
 
@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.suhsaechan:suh-random-data:1.0.0'
+    implementation 'me.suhsaechan:suh-random-engine:1.0.1'
 }
 ```
 
@@ -44,8 +44,8 @@ dependencies {
 <dependencies>
     <dependency>
         <groupId>me.suhsaechan</groupId>
-        <artifactId>suh-random-data</artifactId>
-        <version>1.0.0</version>
+        <artifactId>suh-random-engine</artifactId>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```
@@ -55,7 +55,7 @@ dependencies {
 ### Spring Boot 프로젝트에서 사용
 
 ```java
-import me.suhsaechan.suhnicknamegenerator.service.SuhNicknameGenerator;
+import me.suhsaechan.suhnicknamegenerator.core.SuhRandomKit;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -76,12 +76,12 @@ public class UserService {
 ### 일반 Java 프로젝트에서 사용
 
 ```java
-import me.suhsaechan.suhnicknamegenerator.core.SuhRandomData;
+import me.suhsaechan.suhnicknamegenerator.core.SuhRandomKit;
 
 public class Example {
   public static void main(String[] args) {
     // 기본 한국어 닉네임 생성
-    SuhRandomData generator = SuhRandomData.builder()
+    SuhRandomKit generator = SuhRandomKit.builder()
         .locale("ko") // "ko", "한글", "KOREAN" 등 지원
         .numberLength(4) // 숫자 접미사 길이
         .uuidLength(4)   // UUID 접미사 길이
@@ -103,15 +103,15 @@ public class Example {
 ```
 ### 스프링부트에서 사용 
 ```java
-import me.suhsaechan.suhnicknamegenerator.core.SuhRandomData;
+import me.suhsaechan.suhnicknamegenerator.core.SuhRandomKit;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    private final SuhRandomData nicknameGenerator;
+    private final SuhRandomKit nicknameGenerator;
 
     public UserService() {
-        this.nicknameGenerator = SuhRandomData.builder()
+        this.nicknameGenerator = SuhRandomKit.builder()
             .locale("ko")
             .numberLength(4)
             .uuidLength(4)
@@ -134,7 +134,7 @@ public class UserService {
 
 ### Locale 설정
 ```java
-SuhRandomData generator = SuhRandomData.builder()
+SuhRandomKit generator = SuhRandomKit.builder()
     .locale("en") // 영어 닉네임 (예: CoolCat)
     .build();
 String englishNickname = generator.simpleNickname();
@@ -143,7 +143,7 @@ System.out.println("영어 닉네임: " + englishNickname);
 
 ### 접미사 길이 설정
 ```java
-SuhRandomData generator = SuhRandomData.builder()
+SuhRandomKit generator = SuhRandomKit.builder()
     .locale("ko")
     .numberLength(6) // 6자리 숫자
     .uuidLength(8)   // 8자리 UUID
