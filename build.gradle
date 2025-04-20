@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'me.suhsaechan'
-version = project.hasProperty('version') ? project.property('version') : '0.0.1'
+version = project.hasProperty('version') ? project.property('version') : '1.0.0'
 
 java {
     toolchain {
@@ -48,8 +48,8 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             pom {
-                name = 'suh-nickname-generator'
-                description = '닉네임 생성기 라이브러리'
+                name = 'suh-random-data'
+                description = '새찬 랜덤 생성기 라이브러리'
                 url = 'https://github.com/Cassiiopeia/suh-nickname-generator/'
             }
         }
