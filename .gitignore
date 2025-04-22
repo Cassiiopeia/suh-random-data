@@ -54,3 +54,9 @@ application-*.properties
 
 ### Mac OS ###
 .DS_Store
+
+### Adult ###
+/src/main/resources/data/en/adult_adjectives.txt
+/src/main/resources/data/en/adult_nouns.txt
+/src/main/resources/data/ko/adult_adjectives.txt
+/src/main/resources/data/ko/adult_nouns.txt

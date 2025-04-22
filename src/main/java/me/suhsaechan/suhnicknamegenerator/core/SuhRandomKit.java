@@ -88,4 +88,36 @@ public final class SuhRandomKit {
         if (len > u.length()) len = u.length();
         return simpleNickname() + "-" + u.substring(0, len);
     }
+
+    /** 성인용 형용사 + 명사 */
+    public String matureNickname() {
+        List<String> adj = DataLoader.loadWords(WordType.ADULT_ADJECTIVES, locale);
+        List<String> noun = DataLoader.loadWords(WordType.ADULT_NOUNS, locale);
+        return adj.get(random.nextInt(adj.size()))
+            + noun.get(random.nextInt(noun.size()));
+    }
+
+    /** 성인용 닉네임에 숫자 접미사 추가 */
+    public String matureNicknameWithNumber() {
+        return matureNicknameWithNumber(numberLength);
+    }
+
+    /** 성인용 닉네임에 지정된 길이의 숫자 접미사 추가 */
+    public String matureNicknameWithNumber(int len) {
+        int max = (int) Math.pow(10, len);
+        String fmt = "%0" + len + "d";
+        return matureNickname() + "-" + String.format(fmt, random.nextInt(max));
+    }
+
+    /** 성인용 닉네임에 UUID 접미사 추가 */
+    public String matureNicknameWithUuid() {
+        return matureNicknameWithUuid(uuidLength);
+    }
+
+    /** 성인용 닉네임에 지정된 길이의 UUID 접미사 추가 */
+    public String matureNicknameWithUuid(int len) {
+        String u = UUID.randomUUID().toString().replace("-", "");
+        if (len > u.length()) len = u.length();
+        return matureNickname() + "-" + u.substring(0, len);
+    }
 }

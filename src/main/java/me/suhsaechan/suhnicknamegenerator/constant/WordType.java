@@ -7,7 +7,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum WordType {
   ADJECTIVES("adjectives"),
-  NOUNS("nouns");
+  NOUNS("nouns"),
+  ADULT_ADJECTIVES("adult_adjectives"),
+  ADULT_NOUNS("adult_nouns");
+  ;
 
   private final String filename;
 }
