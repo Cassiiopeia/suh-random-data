@@ -4,7 +4,8 @@
 
 ## 기능
 
-- 랜덤 닉네임 생성: 형용사와 명사를 조합해 자연스러운 닉네임 생성
+- 랜덤 닉네임 생성: 형용사와 명사를 조합해 자연스러운 닉네임 생성 (약 960,000 조합 가능)
+- 성인용 랜덤 닉네임 생성 (v1.0.2): 성인용 형용사와 명사를 조합한 닉네임 생성 (만 19세 이상 사용 가능)
 
 ## 설치 방법
 
@@ -21,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.suhsaechan:suh-random-engine:1.0.1'
+    implementation 'me.suhsaechan:suh-random-engine:1.0.2'
 }
 ```
 
@@ -45,7 +46,7 @@ dependencies {
     <dependency>
         <groupId>me.suhsaechan</groupId>
         <artifactId>suh-random-engine</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </dependency>
 </dependencies>
 ```
@@ -151,11 +152,74 @@ SuhRandomKit generator = SuhRandomKit.builder()
 String longNumberNickname = generator.nicknameWithNumber(); // 예: 멋진고양이-123456
 String longUuidNickname = generator.nicknameWithUuid();     // 예: 멋진고양이-abcdef12
 ```
+
+### 성인용 콘텐츠 사용 (v1.0.2 신규 기능)
+
+> ⚠️ **주의사항**: 성인용 콘텐츠는 만 19세 이상만 사용할 수 있습니다.
+
+```java
+// 성인용 콘텐츠 활성화 (만 19세 이상만 사용 가능)
+SuhRandomKit adultGenerator = SuhRandomKit.builder()
+    .locale("ko")
+    .enableAdultContent(true) // 성인용 콘텐츠 활성화 (중요: 사용자가 만 19세 이상인지 확인 필요)
+    .build();
+
+// 성인용 기본 닉네임
+String adultNickname = adultGenerator.matureNickname();
+
+// 성인용 닉네임 + 숫자
+String adultNumberNickname = adultGenerator.matureNicknameWithNumber();
+
+// 성인용 닉네임 + UUID
+String adultUuidNickname = adultGenerator.matureNicknameWithUuid();
+```
+
+#### ✅ 성인용 콘텐츠 사용 시 필수 동의 사항
+
+성인용 콘텐츠를 사용하기 위해 애플리케이션에서는 다음 사항에 대해 사용자의 명시적인 동의를 받아야 합니다:
+
+1. 사용자가 만 19세 이상임을 확인
+2. 성인용 콘텐츠의 사용에 대한 책임은 사용자에게 있음을 동의
+3. 생성된 콘텐츠를 불법적인 용도로 사용하지 않을 것을 동의
+
+**구현 예시:**
+```java
+// 예시: 성인 인증을 위한 체크박스나 버튼을 통해 사용자의 동의를 받은 후
+boolean userConfirmedAdult = getUserConfirmation(); // 사용자 동의 여부 확인 메소드
+boolean userAcceptedTerms = getUserTermsAcceptance(); // 이용약관 동의 여부 확인 메소드
+
+if (userConfirmedAdult && userAcceptedTerms) {
+    SuhRandomKit adultGenerator = SuhRandomKit.builder()
+        .enableAdultContent(true) // 동의를 받은 후에만 활성화
+        .build();
+    
+    String nickname = adultGenerator.matureNickname();
+    // ...
+} else {
+    // 동의를 받지 못한 경우 일반 콘텐츠만 제공
+    SuhRandomKit normalGenerator = SuhRandomKit.builder().build();
+    String nickname = normalGenerator.simpleNickname();
+    // ...
+}
+```
+
 ## 문서
 
 - [API 문서](docs/api.md)
 - [사용 예제](docs/usage.md)
 - [변경 이력](docs/CHANGELOG.md)
+
+## 변경 이력
+
+### 1.0.2 (최신)
+- 성인용 랜덤 닉네임 생성 기능 추가 (만 19세 이상만 사용 가능)
+- 성인용 콘텐츠 사용을 위한 동의 프로세스 추가
+- 암호화된 성인용 단어 파일 형식 지원
+
+### 1.0.1
+- 기본 닉네임 생성 기능
+- 여러 언어 지원 (한국어, 영어)
+- 숫자 및 UUID 접미사 옵션
 
 ## 라이선스
 
