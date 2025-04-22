@@ -7,17 +7,37 @@ import org.junit.jupiter.api.Test;
 class SuhRandomKitTest {
 
   @Test
-  void testGenerate() {
-    SuhRandomKit kit = SuhRandomKit.builder()
+  public void mainTest(){
+//    nickName_테스트();
+    matureNickName_테스트();
+  }
+
+  private void nickName_테스트() {
+    SuhRandomKit suhRandomKit = SuhRandomKit.builder()
         .locale("ko")        // 한/영/코드 모두 OK
         .numberLength(4)                // 4자리 숫자
         .uuidLength(4)                  // 4자리 UUID
         .build();
 
     log.info("========================");
-    log.info("simpleNickname:       {}", kit.simpleNickname());
-    log.info("nicknameWithNumber:   {}", kit.nicknameWithNumber());
-    log.info("nicknameWithUuid:     {}", kit.nicknameWithUuid());
+    log.info("simpleNickname:       {}", suhRandomKit.simpleNickname());
+    log.info("nicknameWithNumber:   {}", suhRandomKit.nicknameWithNumber());
+    log.info("nicknameWithUuid:     {}", suhRandomKit.nicknameWithUuid());
     log.info("========================");
+  }
+
+  private void matureNickName_테스트(){
+    SuhRandomKit suhRandomKit = SuhRandomKit.builder()
+        .locale("ko")        // 한/영/코드 모두 OK
+        .numberLength(4)                // 4자리 숫자
+        .uuidLength(4)                  // 4자리 UUID
+        .build();
+
+    log.info("========================");
+    log.info("matureNickname:       {}", suhRandomKit.matureNickname());
+    log.info("matureNicknameWithNumber:   {}", suhRandomKit.matureNicknameWithNumber());
+    log.info("matureNicknameWithUuid:     {}", suhRandomKit.matureNicknameWithUuid());
+    log.info("========================");
+
   }
 }
