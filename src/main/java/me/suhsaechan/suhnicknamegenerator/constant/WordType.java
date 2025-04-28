@@ -9,7 +9,8 @@ public enum WordType {
   ADJECTIVES("adjectives"),
   NOUNS("nouns"),
   ADULT_ADJECTIVES("adult_adjectives"),
-  ADULT_NOUNS("adult_nouns");
+  ADULT_NOUNS("adult_nouns"),
+  POLITICIAN_NOUNS("politician_nouns"),
   ;
 
   private final String filename;
