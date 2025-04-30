@@ -6,6 +6,7 @@
 
 - 랜덤 닉네임 생성: 형용사와 명사를 조합해 자연스러운 닉네임 생성 (약 960,000 조합 가능)
 - 성인용 랜덤 닉네임 생성 (v1.0.2): 성인용 형용사와 명사를 조합한 닉네임 생성 (만 19세 이상 사용 가능)
+- 정치인 랜덤 닉네임 생성 (v1.0.3): 형용사와 정치인 이름을 조합한 특별한 닉네임 생성
 
 ## 설치 방법
 
@@ -22,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.suhsaechan:suh-random-engine:1.0.2'
+    implementation 'me.suhsaechan:suh-random-engine:1.1.0'
 }
 ```
 
@@ -46,7 +47,7 @@ dependencies {
     <dependency>
         <groupId>me.suhsaechan</groupId>
         <artifactId>suh-random-engine</artifactId>
-        <version>1.0.2</version>
+        <version>1.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -203,6 +204,33 @@ if (userConfirmedAdult && userAcceptedTerms) {
 }
 ```
 
+### 정치인 닉네임 생성 (v1.1.0 신규 기능)
+
+```java
+// 정치인 닉네임 생성
+SuhRandomKit generator = SuhRandomKit.builder()
+    .locale("ko") // 한국어 또는 영어("en") 지원
+    .build();
+
+// 기본 정치인 닉네임 (형용사 + 정치인 이름)
+String politicianNickname = generator.politicianNickname();
+System.out.println("정치인 닉네임: " + politicianNickname); // 예: 멋진윤석열
+
+// 정치인 닉네임 + 숫자
+String numberedPoliticianNickname = generator.politicianNicknameWithNumber();
+System.out.println("숫자 정치인 닉네임: " + numberedPoliticianNickname); // 예: 빛나는이재명-1234
+
+// 정치인 닉네임 + UUID
+String uuidPoliticianNickname = generator.politicianNicknameWithUuid();
+System.out.println("UUID 정치인 닉네임: " + uuidPoliticianNickname); // 예: 멋진이준석-abcd
+
+// 사용자 정의 접미사 길이 지정
+String customNumberedPolitician = generator.politicianNicknameWithNumber(6); // 6자리 숫자
+String customUuidPolitician = generator.politicianNicknameWithUuid(8); // 8자리 UUID
+```
+
+> **참고**: 정치인 닉네임 기능은 현직 및 전직 정치인 이름을 사용하여 재미있는 닉네임을 생성합니다. 실제 정치적 견해나 의견을 대변하지 않으며, 순수하게 재미를 위한 기능입니다.
+
 ## 문서
 
 - [API 문서](docs/api.md)
@@ -211,7 +239,12 @@ if (userConfirmedAdult && userAcceptedTerms) {
 
 ## 변경 이력
 
-### 1.0.2 (최신)
+### 1.1.0 (최신)
+- 정치인 닉네임 생성 기능 추가
+- 한국어/영어 정치인 이름 데이터셋 지원
+- 정치인 닉네임에 대한 숫자 및 UUID 접미사 옵션 추가
+
+### 1.0.2
 - 성인용 랜덤 닉네임 생성 기능 추가 (만 19세 이상만 사용 가능)
 - 성인용 콘텐츠 사용을 위한 동의 프로세스 추가
 - 암호화된 성인용 단어 파일 형식 지원
