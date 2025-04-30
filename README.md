@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.suhsaechan:suh-random-engine:1.0.3'
+    implementation 'me.suhsaechan:suh-random-engine:1.1.0'
 }
 ```
 
@@ -47,7 +47,7 @@ dependencies {
     <dependency>
         <groupId>me.suhsaechan</groupId>
         <artifactId>suh-random-engine</artifactId>
-        <version>1.0.3</version>
+        <version>1.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -204,7 +204,7 @@ if (userConfirmedAdult && userAcceptedTerms) {
 }
 ```
 
-### 정치인 닉네임 생성 (v1.0.3 신규 기능)
+### 정치인 닉네임 생성 (v1.1.0 신규 기능)
 
 ```java
 // 정치인 닉네임 생성
@@ -239,7 +239,7 @@ String customUuidPolitician = generator.politicianNicknameWithUuid(8); // 8자�
 
 ## 변경 이력
 
-### 1.0.3 (최신)
+### 1.1.0 (최신)
 - 정치인 닉네임 생성 기능 추가
 - 한국어/영어 정치인 이름 데이터셋 지원
 - 정치인 닉네임에 대한 숫자 및 UUID 접미사 옵션 추가
